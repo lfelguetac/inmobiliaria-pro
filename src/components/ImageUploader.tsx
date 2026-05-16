@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { Upload, X, Image as ImageIcon } from 'lucide-react'
+import { Upload, X } from 'lucide-react'
 
 interface ImageUploaderProps {
-  propertyId?: string
   images: string[]
   onChange: (images: string[]) => void
 }
 
-export default function ImageUploader({ propertyId, images, onChange }: ImageUploaderProps) {
+export default function ImageUploader({ images, onChange }: ImageUploaderProps) {
   const [uploading, setUploading] = useState(false)
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -20,10 +19,10 @@ export default function ImageUploader({ propertyId, images, onChange }: ImageUpl
 
     for (const file of Array.from(files)) {
       const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}-${file.name}`
-      const { error } = await supabase.storage.from('properties').upload(fileName, file)
+      const { error } = await supabase!.storage.from('properties').upload(fileName, file)
 
       if (!error) {
-        const { data } = supabase.storage.from('properties').getPublicUrl(fileName)
+        const { data } = supabase!.storage.from('properties').getPublicUrl(fileName)
         newUrls.push(data.publicUrl)
       }
     }
@@ -35,7 +34,7 @@ export default function ImageUploader({ propertyId, images, onChange }: ImageUpl
   function removeImage(index: number) {
     const url = images[index]
     const fileName = url.split('/').pop()
-    if (fileName) supabase.storage.from('properties').remove([fileName])
+    if (fileName) supabase!.storage.from('properties').remove([fileName])
     onChange(images.filter((_, i) => i !== index))
   }
 

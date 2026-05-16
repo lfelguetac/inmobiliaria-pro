@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
-import type { Property } from '../types/property'
+import type { Property } from '../../types/property'
 
 export default function Admin() {
   const [properties, setProperties] = useState<Property[]>([])

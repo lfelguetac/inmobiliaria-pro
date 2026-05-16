@@ -23,12 +23,14 @@ export default function PropertyDetail() {
   if (loading) return <p className="text-center py-16">Cargando...</p>
   if (!property) return <p className="text-center py-16">Propiedad no encontrada</p>
 
+  const hasImages = property.images.length > 0
+
   function nextImage() {
-    if (property.images.length > 0) setCurrentImage((currentImage + 1) % property.images.length)
+    if (hasImages) setCurrentImage((currentImage + 1) % property!.images.length)
   }
 
   function prevImage() {
-    if (property.images.length > 0) setCurrentImage((currentImage - 1 + property.images.length) % property.images.length)
+    if (hasImages) setCurrentImage((currentImage - 1 + property!.images.length) % property!.images.length)
   }
 
   return (
