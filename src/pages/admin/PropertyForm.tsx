@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { supabase } from '@/lib/supabase'
-import ImageUploader from '@/components/ImageUploader'
+import { supabase } from '../../lib/supabase'
+import ImageUploader from '../../components/ImageUploader'
 import type { Property } from '../../types/property'
 
 export default function PropertyForm() {
